@@ -10,14 +10,9 @@ class Vocab:
 
     def save_trigrams_to_file(self, corpus):
         save_file = corpus[:-4] + '_trigrams.txt'
-
-        # only do it if we haven't saved this info before
-        if os.path.isfile(save_file):
-            return
-
-        with open(save_file, 'a') as file:
+        with open(save_file, 'w') as file:
             for trigram, trigram_prob in self.trigram_dict.items():
-                file.write('{}^^^{}\n'.format(trigram, trigram_prob))
+                file.write('{} {} {}%~%{}\n'.format(trigram[0], trigram[1], trigram[2], trigram_prob))
 
     def generate_vocab_from_corpus(self, corpus):
         bigram_dict = {}
@@ -26,7 +21,8 @@ class Vocab:
             for line in file:
                 token_list = tokenize(line)
 
-                if (len(token_list) > 4):
+                # 5 is an arbitrary choice for now, but this limit just encourages longer messages to train on
+                if (len(token_list) > 5):
                     # add trigrams to dictionary
                     for i in range(0, len(token_list) - 2):
                         trigram = tuple(token_list[i:i+3])
@@ -57,10 +53,12 @@ class Vocab:
     def load_vocab_file(self, vocab_file):
         with open(vocab_file, 'r') as file:
             for line in file:
-                trigram_and_prob = line.split('^^^')
-                
-                trigram = tuple(trigram_and_prob[0])
-                prob = trigram_and_prob[1]
+                trigram_and_prob = line.split('%~%')
+
+                trigram_tokens = trigram_and_prob[0]
+                trigram = tuple(trigram_tokens.split(' '))
+                prob = float(trigram_and_prob[1][:-1])
+
                 self.trigram_dict[trigram] = prob
                 
                 if trigram[0] == '{':
