@@ -1,17 +1,18 @@
-from Vocab import Vocab
+from TextGenerator.TextGeneration import Vocab
 import sys
 import random
 import re
 
-def output_message(message):
+def get_message_string(message):
+    message_str = ''
     for token in message:
         if token != '{' and token != '}':
             if not re.match('[?.!,]', token):
-                print(' ', end='')
-            print(token, end='')
-    print('')
+                message_str += ' '
+            message_str += token
+    return message_str
 
-def get_next_trigram(current_trigram):
+def get_next_trigram(vocab, current_trigram):
     # gets all trigrams where the first two tokens matching the current trigram's last two tokens
     possible_continuations = {trigram:prob for (trigram, prob) in vocab.trigram_dict.items() if current_trigram[1:] == trigram[:-1]}
 
@@ -34,13 +35,14 @@ def generate_random_message(vocab):
     generated_message = list(current_trigram)
 
     while not current_trigram.__contains__('}'):
-        current_trigram = get_next_trigram(current_trigram)
+        current_trigram = get_next_trigram(vocab, current_trigram)
         generated_message.append(current_trigram[-1])
 
         if len(generated_message) > 30:
             break
 
-    output_message(generated_message)
+    message = get_message_string(generated_message)
+    return message
 
 if __name__ == "__main__":
     input_file = sys.argv[1]

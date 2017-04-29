@@ -1,4 +1,4 @@
-from Tokenizer import tokenize
+from TextGenerator.TextGeneration.Tokenizer import tokenize
 import math
 import os.path 
 
