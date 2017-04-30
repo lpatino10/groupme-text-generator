@@ -43,54 +43,56 @@
     </div>
     <div class="container mb-30">
         <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-2">
-                <div class="btn-group btn-group-justified">
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-lg btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Logan <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">McCoy</a></li>
-                            <li><a href="#">Nick</a></li>
-                            <li><a href="#">Brian</a></li>
-                            <li><a href="#">Craig</a></li>
-                            <li><a href="#">Zach</a></li>
-                            <li><a href="#">Niel</a></li>
-                        </ul>
-                    </div>
+            <div class="col-xs-2 visible-xs"></div>
+            <div class="col-xs-8 col-md-4">
+                <div class="btn-block btn-block">
+                    <button type="button" class="btn btn-lg btn-block btn-default dropdown-toggle" id="person-choice" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Person <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" id="person-dropdown">
+                        <li><a>Logan</a></li>
+                        <li><a>McCoy</a></li>
+                        <li><a>Nick</a></li>
+                        <li><a>Brian</a></li>
+                        <li><a>Craig</a></li>
+                        <li><a>Zach</a></li>
+                        <li><a>Niel</a></li>
+                    </ul>
                 </div>
             </div>
-            <div class="col-md-2">
-                <div class="btn-group btn-group-justified">
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-lg btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Word <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Character</a></li>
-                        </ul>
-                    </div>
+            <div class="col-xs-2 visible-xs"></div>
+            <div class="clearfix visible-xs"></div>
+            <div class="col-xs-2 visible-xs"></div>
+            <div class="col-xs-8 col-md-4">
+                <div class="btn-group btn-block">
+                    <button type="button" class="btn btn-lg btn-block btn-default dropdown-toggle" id="token-type-choice" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Token type <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" id="token-type-dropdown">
+                        <li><a>Word</a></li>
+                        <li><a>Character</a></li>
+                    </ul>
                 </div>
             </div>
-            <div class="col-md-2">
-                <div class="btn-group btn-group-justified">
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-lg btn-primary">Generate</button>
-                    </div>
-                </div>
+            <div class="col-xs-2 visible-xs"></div>
+            <div class="clearfix visible-xs"></div>
+            <div class="col-xs-2 visible-xs"></div>
+            <div class="col-xs-8 col-md-4">
+                <button type="button" class="btn btn-lg btn-block btn-primary">Generate</button>
             </div>
-            <div class="col-md-3"></div>
+            <div class="col-xs-2 visible-xs"></div>
         </div>
     </div>
     <div class="container">
-        <div class="well well-lg">
-            <p class="lead text-center">
-                {{ message }}
-            </p>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h4 class="text-center"> {{ message }} </h4>
+            </div>
         </div>
     </div>
 
+    <!-- Main js file -->
+    <script src="{% static 'TextGenerator/js/text-configurer.js' %}"></script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
