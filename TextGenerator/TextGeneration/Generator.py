@@ -38,7 +38,7 @@ def generate_random_message(vocab):
         current_trigram = get_next_trigram(vocab, current_trigram)
         generated_message.append(current_trigram[-1])
 
-        if len(generated_message) > 30:
+        if len(generated_message) > 100:
             break
 
     message = get_message_string(generated_message)
