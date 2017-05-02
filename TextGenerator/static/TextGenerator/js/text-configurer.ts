@@ -1,21 +1,26 @@
-var personDropdown: HTMLElement = document.getElementById('person-dropdown');
-var tokenTypeDropdown: HTMLElement = document.getElementById('token-type-dropdown');
+declare var $: JQueryStatic;
 
-function getEventTarget(e) {
-    e = e || window.event;
-    return e.target || e.srcElement; 
-}
+var person: string = null;
+var tokenType: string = null;
 
-function changeText(event, id: string) {
-    var target = getEventTarget(event);
-    var choice = document.getElementById(id);
-    choice.innerHTML = target.innerHTML + ' <span class="caret"></span>';
-}
+$('#person-dropdown li > a').click(function(e){
+    var personChoice: string = this.innerHTML;
+    $('#person-choice').html(personChoice + ' <span class="caret"></span>');
+    person = personChoice;
+});
 
-personDropdown.onclick = function(event) {
-    changeText(event, 'person-choice');
-}
+$('#token-type-dropdown li > a').click(function(e){
+    var tokenTypeChoice: string = this.innerHTML;
+    $('#token-type-choice').html(tokenTypeChoice + ' <span class="caret"></span>');
+    tokenType = tokenTypeChoice;
+});
 
-tokenTypeDropdown.onclick = function(event) {
-    changeText(event, 'token-type-choice');
-}
+$('#generate-button').click(function() {
+    if (person != null && tokenType != null) {
+        var data = JSON.stringify({ 'person': person, 'tokenType': tokenType });
+        var reponse = $.post(window.location.href, data);
+        reponse.done(function(data) {
+            $('#message').text(data.message);
+        });
+    }
+});
