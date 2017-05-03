@@ -37,9 +37,13 @@ class Generator(object):
         for (trigram, prob) in possible_continuations.items():
             trigram_list.append(trigram)
             prob_list.append(prob)
+            
+        # renormalizing to make sure everything sums to 1
+        normalized_probs = np.array(prob_list)
+        normalized_probs /= normalized_probs.sum()
 
         # returns one at random, weighted with trigram probabilities
-        index_choice = np.random.choice(len(trigram_list), p=prob_list)
+        index_choice = np.random.choice(len(trigram_list), p=normalized_probs)
         return trigram_list[index_choice]
 
     def generate_random_message(self, name):
