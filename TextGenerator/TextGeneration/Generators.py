@@ -3,7 +3,7 @@ import sys
 import random
 import re
 import numpy as np
-from django.contrib.staticfiles.storage import staticfiles_storage
+from django.contrib.staticfiles.templatetags.staticfiles import static
 
 class Generator(object):
     def __init__(self):
@@ -86,14 +86,14 @@ class WordGenerator(Generator):
         self.craig_vocab = Vocabs.WordVocab()
         self.niel_vocab = Vocabs.WordVocab()
 
-        # self.all_vocab.load_vocab_file('../static/TextGenerator/data/all_word_trigrams.txt')
-        # self.logan_vocab.load_vocab_file(staticfiles_storage.url('data/logan_word_trigrams.txt'))
-        # self.mccoy_vocab.load_vocab_file(staticfiles_storage.url('data/mccoy_word_trigrams.txt'))
-        # self.nick_vocab.load_vocab_file(staticfiles_storage.url('data/nick_word_trigrams.txt'))
-        # self.brian_vocab.load_vocab_file(staticfiles_storage.url('data/brian_word_trigrams.txt'))
-        # self.zach_vocab.load_vocab_file(staticfiles_storage.url('data/zach_word_trigrams.txt'))
-        # self.craig_vocab.load_vocab_file(staticfiles_storage.url('data/craig_word_trigrams.txt'))
-        # self.niel_vocab.load_vocab_file(staticfiles_storage.url('data/niel_word_trigrams.txt'))
+        self.all_vocab.load_vocab_file('/app/TextGenerator/static/TextGenerator/data/all_word_trigrams.txt')
+        self.logan_vocab.load_vocab_file('/app/TextGenerator/static/TextGenerator/data/logan_word_trigrams.txt')
+        self.mccoy_vocab.load_vocab_file('/app/TextGenerator/static/TextGenerator/data/mccoy_word_trigrams.txt')
+        self.nick_vocab.load_vocab_file('/app/TextGenerator/static/TextGenerator/data/nick_word_trigrams.txt')
+        self.brian_vocab.load_vocab_file('/app/TextGenerator/static/TextGenerator/data/brian_word_trigrams.txt')
+        self.zach_vocab.load_vocab_file('/app/TextGenerator/static/TextGenerator/data/zach_word_trigrams.txt')
+        self.craig_vocab.load_vocab_file('/app/TextGenerator/static/TextGenerator/data/craig_word_trigrams.txt')
+        self.niel_vocab.load_vocab_file('/app/TextGenerator/static/TextGenerator/data/niel_word_trigrams.txt')
 
 class CharacterGenerator(Generator):
     def get_message_string(self, message):
@@ -113,11 +113,11 @@ class CharacterGenerator(Generator):
         self.craig_vocab = Vocabs.CharacterVocab()
         self.niel_vocab = Vocabs.CharacterVocab()
 
-        # self.all_vocab.load_vocab_file(staticfiles_storage.url('data/all_character_trigrams.txt'))
-        # self.logan_vocab.load_vocab_file(staticfiles_storage.url('data/logan_character_trigrams.txt'))
-        # self.mccoy_vocab.load_vocab_file(staticfiles_storage.url('data/mccoy_character_trigrams.txt'))
-        # self.nick_vocab.load_vocab_file(staticfiles_storage.url('data/nick_character_trigrams.txt'))
-        # self.brian_vocab.load_vocab_file(staticfiles_storage.url('data/brian_character_trigrams.txt'))
-        # self.zach_vocab.load_vocab_file(staticfiles_storage.url('data/zach_character_trigrams.txt'))
-        # self.craig_vocab.load_vocab_file(staticfiles_storage.url('data/craig_character_trigrams.txt'))
-        # self.niel_vocab.load_vocab_file(staticfiles_storage.url('data/niel_character_trigrams.txt'))
+        self.all_vocab.load_vocab_file('/app/TextGenerator/static/TextGenerator/data/all_character_trigrams.txt')
+        self.logan_vocab.load_vocab_file('/app/TextGenerator/static/TextGenerator/data/logan_character_trigrams.txt')
+        self.mccoy_vocab.load_vocab_file('/app/TextGenerator/static/TextGenerator/data/mccoy_character_trigrams.txt')
+        self.nick_vocab.load_vocab_file('/app/TextGenerator/static/TextGenerator/data/nick_character_trigrams.txt')
+        self.brian_vocab.load_vocab_file('/app/TextGenerator/static/TextGenerator/data/brian_character_trigrams.txt')
+        self.zach_vocab.load_vocab_file('/app/TextGenerator/static/TextGenerator/data/zach_character_trigrams.txt')
+        self.craig_vocab.load_vocab_file('/app/TextGenerator/static/TextGenerator/data/craig_character_trigrams.txt')
+        self.niel_vocab.load_vocab_file('/app/TextGenerator/static/TextGenerator/data/niel_character_trigrams.txt')
