@@ -49,7 +49,7 @@ class Vocab(object):
                 trigram_and_prob = line.split('%~%')
 
                 trigram_tokens = trigram_and_prob[0]
-                trigram = tuple(trigram_tokens.split(' '))
+                trigram = self.get_trigram_tuple(trigram_tokens)
                 prob = float(trigram_and_prob[1][:-1])
 
                 self.trigram_dict[trigram] = prob
@@ -67,6 +67,9 @@ class WordVocab(Vocab):
         with open(save_file, 'w') as file:
             for trigram, trigram_prob in self.trigram_dict.items():
                 file.write('{} {} {}%~%{}\n'.format(trigram[0], trigram[1], trigram[2], trigram_prob))
+            
+    def get_trigram_tuple(self, trigram_tokens):
+        return tuple(trigram_tokens.split(' '))
 
 class CharacterVocab(Vocab):
     def __init__(self):
@@ -78,3 +81,6 @@ class CharacterVocab(Vocab):
         with open(save_file, 'w') as file:
             for trigram, trigram_prob in self.trigram_dict.items():
                 file.write('{}{}{}%~%{}\n'.format(trigram[0], trigram[1], trigram[2], trigram_prob))
+
+    def get_trigram_tuple(self, trigram_tokens):
+        return tuple(list(trigram_tokens))
