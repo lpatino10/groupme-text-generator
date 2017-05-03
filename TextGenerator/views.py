@@ -8,6 +8,8 @@ import requests
 @csrf_exempt
 def index(request):
 
+    #del request.session['generator']
+
     # initializes all trigram dicts
     if 'generator' not in request.session:
         generator = Generator.Generator()

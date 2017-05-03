@@ -19,8 +19,10 @@ class Generator:
             vocab = self.zach_vocab
         elif name == 'craig':
             vocab = self.craig_vocab
-        else:
+        elif name == 'niel':
             vocab = self.niel_vocab
+        else:
+            vocab = self.all_vocab
         return vocab
 
     def get_message_string(self, message):
@@ -67,6 +69,7 @@ class Generator:
         return message
 
     def __init__(self):
+        self.all_vocab = Vocab.Vocab()
         self.logan_vocab = Vocab.Vocab()
         self.mccoy_vocab = Vocab.Vocab()
         self.nick_vocab = Vocab.Vocab()
@@ -75,6 +78,7 @@ class Generator:
         self.craig_vocab = Vocab.Vocab()
         self.niel_vocab = Vocab.Vocab()
 
+        self.all_vocab.load_vocab_file('/Users/loganpatino/RandomProjects/GroupMeTextGenerator/TextGenerator/Data/all_trigrams.txt')
         self.logan_vocab.load_vocab_file('/Users/loganpatino/RandomProjects/GroupMeTextGenerator/TextGenerator/Data/logan_trigrams.txt')
         self.mccoy_vocab.load_vocab_file('/Users/loganpatino/RandomProjects/GroupMeTextGenerator/TextGenerator/Data/mccoy_trigrams.txt')
         self.nick_vocab.load_vocab_file('/Users/loganpatino/RandomProjects/GroupMeTextGenerator/TextGenerator/Data/nick_trigrams.txt')
