@@ -14,6 +14,9 @@
         <link rel="stylesheet" type="text/css" href="{% static 'TextGenerator/css/bootstrap-social.css' %}" />   
         <link rel="stylesheet" type="text/css" href="{% static 'TextGenerator/css/font-awesome.min.css' %}" />
 
+        <!-- Loading animation -->
+        <link rel="stylesheet" type="text/css" href="{% static 'TextGenerator/css/line-scale.css' %}" />
+
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -87,8 +90,15 @@
         </div>
         <div class="container">
             <div class="panel panel-default">
-                <div class="panel-body">
-                    <h4 class="text-center" id="message"></h4>
+                <div class="panel-body text-center">
+                    <div class="la-line-scale center-block" style="display: none;" id="loader">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <h4 id="message"></h4>
                 </div>
             </div>
         </div>

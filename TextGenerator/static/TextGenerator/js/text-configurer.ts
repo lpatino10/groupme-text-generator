@@ -17,9 +17,13 @@ $('#token-type-dropdown li > a').click(function(e){
 
 $('#generate-button').click(function() {
     if (person != null && tokenType != null) {
+        $('#message').hide();
+        $('#loader').show();
         var data = JSON.stringify({ 'person': person, 'tokenType': tokenType });
         var reponse = $.post(window.location.href, data);
         reponse.done(function(data) {
+            $('#loader').hide();
+            $('#message').show();
             $('#message').text(data.message);
         });
     }
