@@ -136,4 +136,4 @@ ENV/
 /site
 
 # config files
-.ini
+config.ini
