@@ -26,7 +26,8 @@ SECRET_KEY = '6fk7l7#x4i6_2f&8nke$8o-e=f_gcu(1b$kb_i627_8&p%4ofx'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'groupme-text-generator.herokuapp.com'
+    'groupme-text-generator.herokuapp.com',
+    '127.0.0.1'
 ]
 
 

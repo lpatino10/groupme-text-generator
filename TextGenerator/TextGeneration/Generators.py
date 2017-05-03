@@ -3,6 +3,7 @@ import sys
 import random
 import re
 import numpy as np
+from django.contrib.staticfiles.storage import staticfiles_storage
 
 class Generator(object):
     def __init__(self):
@@ -37,7 +38,7 @@ class Generator(object):
         for (trigram, prob) in possible_continuations.items():
             trigram_list.append(trigram)
             prob_list.append(prob)
-            
+
         # renormalizing to make sure everything sums to 1
         normalized_probs = np.array(prob_list)
         normalized_probs /= normalized_probs.sum()
@@ -85,14 +86,14 @@ class WordGenerator(Generator):
         self.craig_vocab = Vocabs.WordVocab()
         self.niel_vocab = Vocabs.WordVocab()
 
-        self.all_vocab.load_vocab_file('/Users/loganpatino/RandomProjects/GroupMeTextGenerator/TextGenerator/Data/all_word_trigrams.txt')
-        self.logan_vocab.load_vocab_file('/Users/loganpatino/RandomProjects/GroupMeTextGenerator/TextGenerator/Data/logan_word_trigrams.txt')
-        self.mccoy_vocab.load_vocab_file('/Users/loganpatino/RandomProjects/GroupMeTextGenerator/TextGenerator/Data/mccoy_word_trigrams.txt')
-        self.nick_vocab.load_vocab_file('/Users/loganpatino/RandomProjects/GroupMeTextGenerator/TextGenerator/Data/nick_word_trigrams.txt')
-        self.brian_vocab.load_vocab_file('/Users/loganpatino/RandomProjects/GroupMeTextGenerator/TextGenerator/Data/brian_word_trigrams.txt')
-        self.zach_vocab.load_vocab_file('/Users/loganpatino/RandomProjects/GroupMeTextGenerator/TextGenerator/Data/zach_word_trigrams.txt')
-        self.craig_vocab.load_vocab_file('/Users/loganpatino/RandomProjects/GroupMeTextGenerator/TextGenerator/Data/craig_word_trigrams.txt')
-        self.niel_vocab.load_vocab_file('/Users/loganpatino/RandomProjects/GroupMeTextGenerator/TextGenerator/Data/niel_word_trigrams.txt')
+        self.all_vocab.load_vocab_file(staticfiles_storage.url('data/all_word_trigrams.txt'))
+        self.logan_vocab.load_vocab_file(staticfiles_storage.url('data/logan_word_trigrams.txt'))
+        self.mccoy_vocab.load_vocab_file(staticfiles_storage.url('data/mccoy_word_trigrams.txt'))
+        self.nick_vocab.load_vocab_file(staticfiles_storage.url('data/nick_word_trigrams.txt'))
+        self.brian_vocab.load_vocab_file(staticfiles_storage.url('data/brian_word_trigrams.txt'))
+        self.zach_vocab.load_vocab_file(staticfiles_storage.url('data/zach_word_trigrams.txt'))
+        self.craig_vocab.load_vocab_file(staticfiles_storage.url('data/craig_word_trigrams.txt'))
+        self.niel_vocab.load_vocab_file(staticfiles_storage.url('data/niel_word_trigrams.txt'))
 
 class CharacterGenerator(Generator):
     def get_message_string(self, message):
@@ -112,11 +113,11 @@ class CharacterGenerator(Generator):
         self.craig_vocab = Vocabs.CharacterVocab()
         self.niel_vocab = Vocabs.CharacterVocab()
 
-        self.all_vocab.load_vocab_file('/Users/loganpatino/RandomProjects/GroupMeTextGenerator/TextGenerator/Data/all_character_trigrams.txt')
-        self.logan_vocab.load_vocab_file('/Users/loganpatino/RandomProjects/GroupMeTextGenerator/TextGenerator/Data/logan_character_trigrams.txt')
-        self.mccoy_vocab.load_vocab_file('/Users/loganpatino/RandomProjects/GroupMeTextGenerator/TextGenerator/Data/mccoy_character_trigrams.txt')
-        self.nick_vocab.load_vocab_file('/Users/loganpatino/RandomProjects/GroupMeTextGenerator/TextGenerator/Data/nick_character_trigrams.txt')
-        self.brian_vocab.load_vocab_file('/Users/loganpatino/RandomProjects/GroupMeTextGenerator/TextGenerator/Data/brian_character_trigrams.txt')
-        self.zach_vocab.load_vocab_file('/Users/loganpatino/RandomProjects/GroupMeTextGenerator/TextGenerator/Data/zach_character_trigrams.txt')
-        self.craig_vocab.load_vocab_file('/Users/loganpatino/RandomProjects/GroupMeTextGenerator/TextGenerator/Data/craig_character_trigrams.txt')
-        self.niel_vocab.load_vocab_file('/Users/loganpatino/RandomProjects/GroupMeTextGenerator/TextGenerator/Data/niel_character_trigrams.txt')
+        self.all_vocab.load_vocab_file(staticfiles_storage.url('data/all_character_trigrams.txt'))
+        self.logan_vocab.load_vocab_file(staticfiles_storage.url('data/logan_character_trigrams.txt'))
+        self.mccoy_vocab.load_vocab_file(staticfiles_storage.url('data/mccoy_character_trigrams.txt'))
+        self.nick_vocab.load_vocab_file(staticfiles_storage.url('data/nick_character_trigrams.txt'))
+        self.brian_vocab.load_vocab_file(staticfiles_storage.url('data/brian_character_trigrams.txt'))
+        self.zach_vocab.load_vocab_file(staticfiles_storage.url('data/zach_character_trigrams.txt'))
+        self.craig_vocab.load_vocab_file(staticfiles_storage.url('data/craig_character_trigrams.txt'))
+        self.niel_vocab.load_vocab_file(staticfiles_storage.url('data/niel_character_trigrams.txt'))
