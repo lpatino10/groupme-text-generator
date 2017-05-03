@@ -2,6 +2,7 @@ from TextGenerator.TextGeneration import Vocab
 import sys
 import random
 import re
+import numpy as np
 
 class Generator:
 
@@ -38,17 +39,15 @@ class Generator:
         # gets all trigrams where the first two tokens matching the current trigram's last two tokens
         possible_continuations = {trigram:prob for (trigram, prob) in vocab.trigram_dict.items() if current_trigram[1:] == trigram[:-1]}
 
-        # finds max probability in above dict
-        max_prob = max(possible_continuations.values())
-
-        # picks out all trigrams with highest prob
-        next_list = []
+        trigram_list = []
+        prob_list = []
         for (trigram, prob) in possible_continuations.items():
-            if prob == max_prob:
-                next_list.append(trigram)
+            trigram_list.append(trigram)
+            prob_list.append(prob)
 
-        # returns one at random
-        return random.choice(next_list)
+        # returns one at random, weighted with trigram probabilities
+        index_choice = np.random.choice(len(trigram_list), p=prob_list)
+        return trigram_list[index_choice]
 
     def generate_random_message(self, name):
         vocab = self.choose_vocab(name)
@@ -58,11 +57,12 @@ class Generator:
         current_trigram = starting_trigram
         generated_message = list(current_trigram)
 
-        while not current_trigram.__contains__('}'):
+        while '}' not in current_trigram:
             current_trigram = self.get_next_trigram(vocab, current_trigram)
             generated_message.append(current_trigram[-1])
 
-            if len(generated_message) > 100:
+            # arbitrary cutoff length that could be added as option on webpage
+            if len(generated_message) > 150:
                 break
 
         message = self.get_message_string(generated_message)

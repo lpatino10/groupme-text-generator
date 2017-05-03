@@ -1,5 +1,4 @@
 from TextGenerator.TextGeneration.Tokenizer import tokenize
-import math
 import os.path 
 
 class Vocab:
@@ -39,10 +38,10 @@ class Vocab:
                         else:
                             bigram_dict[bigram] = 1          
 
-        # finally, divide through trigram_dict by corresponding bigram_dict counts to get log probabilities
+        # finally, divide through trigram_dict by corresponding bigram_dict counts to get probabilities
         for trigram, trigram_count in self.trigram_dict.items():
             bigram_count = bigram_dict[trigram[:-1]]
-            self.trigram_dict[trigram] = math.log(trigram_count / bigram_count)
+            self.trigram_dict[trigram] = (float(trigram_count) / float(bigram_count))
 
             # want to keep possible start points for generation later
             if trigram[0] == '{':
