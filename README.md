@@ -4,7 +4,7 @@
 This project generates text based on a GroupMe chat I've had with my best friends for a few years. Text can be generated using training text from an indivual group member or from the full chat history, and it can be generated on a word-by-word or character-by-character basis.
 
 ## Demo
-![Demo](https://cloud.githubusercontent.com/assets/8710772/25749212/b96bb92c-317b-11e7-8e36-42045cca474b.gif)
+![Demo](https://cloud.githubusercontent.com/assets/8710772/25773371/3660a70c-324a-11e7-99d1-c51753bb72cd.gif)
 [Try it yourself!](http://groupme-text-generator.herokuapp.com/)
 
 ## How it Works

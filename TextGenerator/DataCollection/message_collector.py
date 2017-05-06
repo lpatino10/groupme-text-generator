@@ -2,7 +2,7 @@ import requests
 import configparser
 
 config_parser = configparser.ConfigParser()
-config_parser.read('/Users/loganpatino/RandomProjects/GroupMeTextGenerator/DataCollection/config.ini')
+config_parser.read('/Users/loganpatino/RandomProjects/GroupMeTextGenerator/TextGenerator/DataCollection')
 
 id_to_filepath_dict = {
     '10957649': '../Data/brian.txt',
