@@ -9,10 +9,16 @@ class Vocab(object):
     def generate_vocab(self, person):
         bigram_dict = {}
 
+        # gets messages from single person or everyone
         db = get_db_reference()
-        message_list = db.child(person).get()
+        message_list = []
+        if person == 'all':
+            for person_key in db.get().each():
+                message_list.extend(db.child(person_key.key()).get().each())
+        else:
+            message_list.extend(db.child(person).get().each())
 
-        for message in message_list.each():
+        for message in message_list:
             token_list = self.tokenizer.tokenize(message.val())
 
             # 5 is an arbitrary choice for now, but this limit just encourages longer messages to train on
