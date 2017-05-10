@@ -3,31 +3,10 @@ import sys
 import random
 import re
 import numpy as np
-from django.contrib.staticfiles.templatetags.staticfiles import static
 
 class Generator(object):
-    def __init__(self):
-        self.load_vocabs()
-
-    def choose_vocab(self, name):
-        vocab = None
-        if name == 'logan':
-            vocab = self.logan_vocab
-        elif name == 'mccoy':
-            vocab = self.mccoy_vocab
-        elif name == 'nick':
-            vocab = self.nick_vocab
-        elif name == 'brian':
-            vocab = self.brian_vocab
-        elif name == 'zach':
-            vocab = self.zach_vocab
-        elif name == 'craig':
-            vocab = self.craig_vocab
-        elif name == 'niel':
-            vocab = self.niel_vocab
-        else:
-            vocab = self.all_vocab
-        return vocab
+    def __init__(self, person):
+        self.load_vocab(person)
 
     def get_next_trigram(self, vocab, current_trigram):
         # gets all trigrams where the first two tokens matching the current trigram's last two tokens
@@ -47,16 +26,15 @@ class Generator(object):
         index_choice = np.random.choice(len(trigram_list), p=normalized_probs)
         return trigram_list[index_choice]
 
-    def generate_random_message(self, name):
-        vocab = self.choose_vocab(name)
+    def generate_random_message(self):
 
         # picks random starting point
-        starting_trigram = random.choice(vocab.starting_trigrams)
+        starting_trigram = random.choice(self.vocab.starting_trigrams)
         current_trigram = starting_trigram
         generated_message = list(current_trigram)
 
         while '}' not in current_trigram:
-            current_trigram = self.get_next_trigram(vocab, current_trigram)
+            current_trigram = self.get_next_trigram(self.vocab, current_trigram)
             generated_message.append(current_trigram[-1])
 
             # arbitrary cutoff length that could be added as option on webpage
@@ -76,24 +54,8 @@ class WordGenerator(Generator):
                 message_str += token
         return message_str
 
-    def load_vocabs(self):
-        self.all_vocab = Vocabs.WordVocab()
-        self.logan_vocab = Vocabs.WordVocab()
-        self.mccoy_vocab = Vocabs.WordVocab()
-        self.nick_vocab = Vocabs.WordVocab()
-        self.brian_vocab = Vocabs.WordVocab()
-        self.zach_vocab = Vocabs.WordVocab()
-        self.craig_vocab = Vocabs.WordVocab()
-        self.niel_vocab = Vocabs.WordVocab()
-
-        self.all_vocab.load_vocab_file('/app/TextGenerator/static/TextGenerator/data/all_word_trigrams.txt')
-        self.logan_vocab.load_vocab_file('/app/TextGenerator/static/TextGenerator/data/logan_word_trigrams.txt')
-        self.mccoy_vocab.load_vocab_file('/app/TextGenerator/static/TextGenerator/data/mccoy_word_trigrams.txt')
-        self.nick_vocab.load_vocab_file('/app/TextGenerator/static/TextGenerator/data/nick_word_trigrams.txt')
-        self.brian_vocab.load_vocab_file('/app/TextGenerator/static/TextGenerator/data/brian_word_trigrams.txt')
-        self.zach_vocab.load_vocab_file('/app/TextGenerator/static/TextGenerator/data/zach_word_trigrams.txt')
-        self.craig_vocab.load_vocab_file('/app/TextGenerator/static/TextGenerator/data/craig_word_trigrams.txt')
-        self.niel_vocab.load_vocab_file('/app/TextGenerator/static/TextGenerator/data/niel_word_trigrams.txt')
+    def load_vocab(self, person):
+        self.vocab = Vocabs.WordVocab(person)
 
 class CharacterGenerator(Generator):
     def get_message_string(self, message):
@@ -103,21 +65,5 @@ class CharacterGenerator(Generator):
                 message_str += token
         return message_str
 
-    def load_vocabs(self):
-        self.all_vocab = Vocabs.CharacterVocab()
-        self.logan_vocab = Vocabs.CharacterVocab()
-        self.mccoy_vocab = Vocabs.CharacterVocab()
-        self.nick_vocab = Vocabs.CharacterVocab()
-        self.brian_vocab = Vocabs.CharacterVocab()
-        self.zach_vocab = Vocabs.CharacterVocab()
-        self.craig_vocab = Vocabs.CharacterVocab()
-        self.niel_vocab = Vocabs.CharacterVocab()
-
-        self.all_vocab.load_vocab_file('/app/TextGenerator/static/TextGenerator/data/all_character_trigrams.txt')
-        self.logan_vocab.load_vocab_file('/app/TextGenerator/static/TextGenerator/data/logan_character_trigrams.txt')
-        self.mccoy_vocab.load_vocab_file('/app/TextGenerator/static/TextGenerator/data/mccoy_character_trigrams.txt')
-        self.nick_vocab.load_vocab_file('/app/TextGenerator/static/TextGenerator/data/nick_character_trigrams.txt')
-        self.brian_vocab.load_vocab_file('/app/TextGenerator/static/TextGenerator/data/brian_character_trigrams.txt')
-        self.zach_vocab.load_vocab_file('/app/TextGenerator/static/TextGenerator/data/zach_character_trigrams.txt')
-        self.craig_vocab.load_vocab_file('/app/TextGenerator/static/TextGenerator/data/craig_character_trigrams.txt')
-        self.niel_vocab.load_vocab_file('/app/TextGenerator/static/TextGenerator/data/niel_character_trigrams.txt')
+    def load_vocab(self, person):
+        self.vocab = Vocabs.CharacterVocab(person)
