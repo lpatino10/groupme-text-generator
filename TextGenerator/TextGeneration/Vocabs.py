@@ -3,11 +3,12 @@ from TextGenerator.DataCollection.database_connector import get_db_reference
 
 class Vocab(object):
     def __init__(self):
-        self.trigram_dict = {}
-        self.starting_trigrams = []
+        self.n_gram_dict = {}
+        self.starting_n_grams = []
+        self.total_n_gram_count = 0
 
-    def generate_vocab(self, person):
-        bigram_dict = {}
+    def generate_vocab(self, person, n):
+        lesser_gram_dict = {}
 
         # gets messages from single person or everyone
         db = get_db_reference()
@@ -23,39 +24,52 @@ class Vocab(object):
 
             # 5 is an arbitrary choice for now, but this limit just encourages longer messages to train on
             if (len(token_list) > 5):
-                # add trigrams to dictionary
-                for i in range(0, len(token_list) - 2):
-                    trigram = tuple(token_list[i:i+3])
-                    if trigram in self.trigram_dict:
-                        self.trigram_dict[trigram] += 1
+
+                # add n-grams to dictionary
+                for i in range(0, len(token_list) - (n-1)):
+                    n_gram = tuple(token_list[i:i+n])
+                    if n_gram in self.n_gram_dict:
+                        self.n_gram_dict[n_gram] += 1
                     else:
-                        self.trigram_dict[trigram] = 1
+                        self.n_gram_dict[n_gram] = 1
+                    self.total_n_gram_count += 1
             
-                # add bigrams as well
-                for i in range(0, len(token_list) - 1):
-                    bigram = tuple(token_list[i:i+2])
-                    if bigram in bigram_dict:
-                        bigram_dict[bigram] += 1
+                # we don't need to worry about getting (n-1)-grams in the unigram case
+                if n == 1:
+                    continue
+
+                # add (n-1)-grams as well
+                for i in range(0, len(token_list) - (n-2)):
+                    lesser_gram = tuple(token_list[i:i+(n-1)])
+                    if lesser_gram in lesser_gram_dict:
+                        lesser_gram_dict[lesser_gram] += 1
                     else:
-                        bigram_dict[bigram] = 1      
+                        lesser_gram_dict[lesser_gram] = 1
 
-        # finally, divide through trigram_dict by corresponding bigram_dict counts to get probabilities
-        for trigram, trigram_count in self.trigram_dict.items():
-            bigram_count = bigram_dict[trigram[:-1]]
-            self.trigram_dict[trigram] = (float(trigram_count) / float(bigram_count))
+        # finally, get n-gram probabilities
+        for n_gram, n_gram_count in self.n_gram_dict.items():
 
-            # want to keep possible start points for generation later
-            if trigram[0] == '{':
-                self.starting_trigrams.append(trigram)
+            # in unigram case, we just divide unigram count by total count other than unigram
+            if n == 1:
+                self.n_gram_dict[n_gram] = (float(n_gram_count) / float(self.total_n_gram_count - n_gram_count))
+
+            # otherwise, we divide n-gram count by (n-1)-gram count
+            else:
+                lesser_gram_count = lesser_gram_dict[n_gram[:-1]]
+                self.n_gram_dict[n_gram] = (float(n_gram_count) / float(lesser_gram_count))
+
+            # want to keep possible start points for generation later, unigram can start with whatever
+            if n_gram[0] == '{' or n == 1:
+                self.starting_n_grams.append(n_gram)
 
 class WordVocab(Vocab):
-    def __init__(self, person):
+    def __init__(self, person, n):
         super(WordVocab, self).__init__()
-        self.tokenizer = Tokenizers.WordTokenizer()
-        self.generate_vocab(person)
+        self.tokenizer = Tokenizers.WordTokenizer(n)
+        self.generate_vocab(person, n)
 
 class CharacterVocab(Vocab):
-    def __init__(self, person):
+    def __init__(self, person, n):
         super(CharacterVocab, self).__init__()
-        self.tokenizer = Tokenizers.CharacterTokenizer()
-        self.generate_vocab(person)
+        self.tokenizer = Tokenizers.CharacterTokenizer(n)
+        self.generate_vocab(person, n)

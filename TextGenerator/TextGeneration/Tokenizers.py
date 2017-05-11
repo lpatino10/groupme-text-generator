@@ -1,15 +1,18 @@
 import re
 
 class Tokenizer(object):
+    def __init__(self, n):
+        self.starter_tokens = ['{'] * (n - 1)
+        self.ending_tokens = ['}'] * (n - 1)
+
     def tokenize(self, message):
-        # starter tokens
-        token_list = ['{', '{']
+        token_list = []
+        token_list.extend(self.starter_tokens)
 
         inner_tokens = self.get_inner_tokens(message)
-
-        # adding message tokens and ending tokens
         token_list.extend(inner_tokens)
-        token_list.extend(['}', '}'])
+        
+        token_list.extend(self.ending_tokens)
 
         return token_list
 

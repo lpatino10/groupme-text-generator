@@ -1,6 +1,6 @@
 import os
 import pyrebase
-#import configparser
+import configparser
 
 id_to_name_dict = {
     '10957649': 'brian',
@@ -14,12 +14,12 @@ id_to_name_dict = {
 }
 
 # configparser code is for local testing only
-#config_parser = configparser.ConfigParser()
-#config_parser.read('/Users/loganpatino/RandomProjects/GroupMeTextGenerator/TextGenerator/DataCollection/config.ini')
+config_parser = configparser.ConfigParser()
+config_parser.read('/Users/loganpatino/RandomProjects/GroupMeTextGenerator/TextGenerator/DataCollection/config.ini')
 
 db_config = {
-    'apiKey': os.environ['FIREBASE_KEY'],
-    #'apiKey': config_parser.get('keys', 'FirebaseKey'),
+    #'apiKey': os.environ['FIREBASE_KEY'],
+    'apiKey': config_parser.get('keys', 'FirebaseKey'),
     'authDomain': 'groupme-text-generator.firebaseapp.com',
     'databaseURL': 'https://groupme-text-generator.firebaseio.com/',
     'storageBucket': 'groupme-text-generator.appspot.com'

@@ -26,9 +26,9 @@ def index(request):
 
             generator = None
             if token_type == 'word':
-                generator = Generators.WordGenerator(person)
+                generator = Generators.WordGenerator(person, 1)
             else:
-                generator = Generators.CharacterGenerator(person)
+                generator = Generators.CharacterGenerator(person, 1)
 
             message = generator.generate_random_message()
             data = {
