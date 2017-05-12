@@ -30,19 +30,24 @@
                 <h1 class="text-center">GroupMe Text Generator</h1><br>
                 <p>
                     This website uses the full GroupMe message history of our group chat to train a simple
-                    text generation model for each individual group member and every member combined. To 
-                    test it out, choose a person and token type and hit the 'Generate' button to generate 
-                    a message based on their message history.
+                    text generation model for each individual group member or every member combined. To 
+                    test it out, choose a person, token type, and n-gram model to use and hit the 'Generate' 
+                    button to generate a message based on their message history.
                 </p>
                 <p>
                     The token type tells the model to generate messages one word at a time or one
                     character at a time with the 'Word' and 'Character' options respectively.
                 </p>
                 <p>
-                    For more information on how this works:
+                    The n-gram model essentially changes how much "history" is used when deciding the next
+                    token to generate in a message. You can read more about this <a href="https://en.wikipedia.org/wiki/N-gram"
+                    target="_blank">here</a> or on the linked GitHub page below.
+                </p>
+                <p>
+                    For more information on how this project works:
                 </p>
                 <p class="text-center">
-                    <a class="btn btn-social btn-github" href="https://github.com/lpatino10/groupme-text-generator">
+                    <a class="btn btn-social btn-github" href="https://github.com/lpatino10/groupme-text-generator" target="_blank">
                         <span class="fa fa-github"></span>View on GitHub
                     </a>
                 </p>
@@ -51,8 +56,8 @@
         <div class="container mb-30">
             <div class="row">
                 <div class="col-xs-2 col-s-2 hidden-md hidden-lg"></div>
-                <div class="col-xs-8 col-s-8 col-md-4">
-                    <div class="btn-group btn-block">
+                <div class="col-xs-8 col-s-8 col-md-3">
+                    <div class="btn-group btn-block mb-10">
                         <button type="button" class="btn btn-lg btn-block btn-default dropdown-toggle" id="person-choice" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Person <span class="caret"></span>
                         </button>
@@ -69,10 +74,12 @@
                     </div>
                 </div>
                 <div class="col-xs-2 col-s-2 hidden-md hidden-lg"></div>
+
                 <div class="clearfix hidden-md hidden-lg"></div>
+
                 <div class="col-xs-2 col-s-2 hidden-md hidden-lg"></div>
-                <div class="col-xs-8 col-s-8 col-md-4">
-                    <div class="btn-group btn-block">
+                <div class="col-xs-8 col-s-8 col-md-3">
+                    <div class="btn-group btn-block mb-10">
                         <button type="button" class="btn btn-lg btn-block btn-default dropdown-toggle" id="token-type-choice" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Token type <span class="caret"></span>
                         </button>
@@ -83,10 +90,31 @@
                     </div>
                 </div>
                 <div class="col-xs-2 col-s-2 hidden-md hidden-lg"></div>
+
                 <div class="clearfix hidden-md hidden-lg"></div>
+
                 <div class="col-xs-2 col-s-2 hidden-md hidden-lg"></div>
-                <div class="col-xs-8 col-s-8 col-md-4">
-                    <button type="button" class="btn btn-lg btn-block btn-primary" id="generate-button">Generate</button>
+                <div class="col-xs-8 col-s-8 col-md-3">
+                    <div class="btn-group btn-block mb-10">
+                        <button type="button" class="btn btn-lg btn-block btn-default dropdown-toggle" id="n-gram-choice" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            N-gram model <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu btn-block" id="n-gram-dropdown">
+                            <li><a class="text-center">Unigram</a></li>
+                            <li><a class="text-center">Bigram</a></li>
+                            <li><a class="text-center">Trigram</a></li>
+                            <li><a class="text-center">4-gram</a></li>
+                            <li><a class="text-center">5-gram</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xs-2 col-s-2 hidden-md hidden-lg"></div>
+
+                <div class="clearfix hidden-md hidden-lg"></div>
+
+                <div class="col-xs-2 col-s-2 hidden-md hidden-lg"></div>
+                <div class="col-xs-8 col-s-8 col-md-3">
+                    <button type="button" class="btn btn-lg btn-block btn-primary mb-10" id="generate-button">Generate</button>
                 </div>
                 <div class="col-xs-2 col-s-2 hidden-md hidden-lg"></div>
             </div>

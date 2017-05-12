@@ -23,12 +23,13 @@ def index(request):
         else:
             person = post_json['person'].lower()
             token_type = post_json['tokenType'].lower()
+            n = post_json['nGram']
 
             generator = None
             if token_type == 'word':
-                generator = Generators.WordGenerator(person, 1)
+                generator = Generators.WordGenerator(person, n)
             else:
-                generator = Generators.CharacterGenerator(person, 1)
+                generator = Generators.CharacterGenerator(person, n)
 
             message = generator.generate_random_message()
             data = {
